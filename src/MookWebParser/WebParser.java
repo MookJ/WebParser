@@ -54,11 +54,11 @@ public class WebParser {
 		WebParser w = new WebParser();
 		ArrayList<WebContent> webInfo = w.getHeadLine(webname);
 		
-//		w.printLog(webInfo);
+		w.printLog(webInfo);
 			
-//		w.putDB(webInfo);
+		w.putDB(webInfo);
 		
-		index(webInfo);
+//		index(webInfo);
 		
 		
 		
@@ -110,10 +110,11 @@ public class WebParser {
 			news.setContent(content.text());
 
 //		Tags and URLs
-		Elements tags = doc.select("div.row section#mainContent ul li");
-		Elements tagURLs = doc.select("div.row section#mainContent ul li a");
-		for(int i = 0; i < tags.size(); i++) {
+		Elements tags = doc.select("div.row section#mainContent ul.line-tag li");
+		Elements tagURLs = doc.select("div.row section#mainContent ul.line-tag li a");
+		for(int i = 0; i < tagURLs.size(); i++) {
 			
+			System.out.println(i + " total tags: " + tags.size() + " total tagURLs: " + tagURLs.size());
 			String absHref = tagURLs.get(i).attr("abs:href");
 			news.addTags(tags.get(i).text(),absHref);
 			
@@ -129,7 +130,7 @@ public class WebParser {
 			news.addPhotoURLs(absHref);
 		}
 		
-		System.out.println("Done get News");
+		System.out.println("Done get one article");
 		
 		return news;
 	}
